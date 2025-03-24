@@ -17,9 +17,9 @@ jobs:
 
       - name: Build and push Docker image
         run: |
-          docker build -t your-dockerhub-username/my-node-service .
-          docker tag your-dockerhub-username/my-node-service your-dockerhub-username/my-node-service:latest
-          docker push your-dockerhub-username/my-node-service:latest
+          docker build -t saswath21/my-node-service .
+          docker tag saswath21/my-node-service saswath21/my-node-service:latest
+          docker push saswath21/my-node-service:latest
 
       - name: SSH into the server and deploy
         uses: appleboy/ssh-action@v0.1.10
@@ -28,7 +28,7 @@ jobs:
           username: ubuntu
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            docker pull your-dockerhub-username/my-node-service:latest
+            docker pull saswath21/my-node-service:latest
             docker stop my-node-service || true
             docker rm my-node-service || true
-            docker run -d -p 3000:3000 --env SECRET_MESSAGE="${{ secrets.SECRET_MESSAGE }}" --env USERNAME="${{ secrets.USERNAME }}" --env PASSWORD="${{ secrets.PASSWORD }}" --name my-node-service your-dockerhub-username/my-node-service:latest
+            docker run -d -p 3000:3000 --env SECRET_MESSAGE="${{ secrets.SECRET_MESSAGE }}" --env USERNAME="${{ secrets.USERNAME }}" --env PASSWORD="${{ secrets.PASSWORD }}" --name my-node-service saswath21/my-node-service:latest
