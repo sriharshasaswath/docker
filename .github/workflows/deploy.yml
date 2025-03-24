@@ -29,6 +29,4 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             docker pull saswath21/my-node-service:latest
-            docker stop my-node-service || true
-            docker rm my-node-service || true
             docker run -d -p 3000:3000 --env SECRET_MESSAGE="${{ secrets.SECRET_MESSAGE }}" --env USERNAME="${{ secrets.USERNAME }}" --env PASSWORD="${{ secrets.PASSWORD }}" --name my-node-service saswath21/my-node-service:latest
